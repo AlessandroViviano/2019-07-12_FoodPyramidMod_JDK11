@@ -3,6 +3,7 @@ package it.polito.tdp.food;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.food.model.Food;
 import it.polito.tdp.food.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ public class FXMLController {
     private Button btnSimula;
 
     @FXML
-    private ComboBox<?> boxFood;
+    private ComboBox<Food> boxFood;
 
     @FXML
     private TextArea txtResult;
@@ -51,6 +52,17 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	txtResult.clear();
+    	
+    	int x;
+    	try {
+    		x = Integer.parseInt(txtPorzioni.getText());
+    	}catch(NumberFormatException e) {
+    		txtResult.appendText("Errore: DEVI INSERIRE UN NUMERO!\n");
+    		return ;
+    	}
+    	boxFood.getItems().clear();
+    	boxFood.getItems().addAll(model.getFoods(x));
 
     }
 
