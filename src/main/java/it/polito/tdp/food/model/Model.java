@@ -1,6 +1,7 @@
 package it.polito.tdp.food.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,20 @@ public class Model {
 	
 	public int archi() {
 		return this.grafo.edgeSet().size();
+	}
+	
+	public List<FoodCalories> elencoCibiConnessi(Food f) {
+		List<FoodCalories> classifica = new ArrayList<>();
+		
+		List<Food> vicini = Graphs.neighborListOf(this.grafo, f);
+		
+		for(Food v: vicini) {
+			Double peso = this.grafo.getEdgeWeight(this.grafo.getEdge(f, v));
+			classifica.add(new FoodCalories(v, peso));
+		}
+		
+		Collections.sort(classifica);
+		return classifica;
 	}
 	
 }
